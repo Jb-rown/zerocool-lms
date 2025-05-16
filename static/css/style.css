@@ -1,16 +1,20 @@
-/* Harvard-inspired styles */
-:root {
-    --harvard-crimson: #A51C30;
-    --harvard-gray: #545454;
-    --harvard-light: #F8F8F8;
+/* Custom styles */
+.progress-bar {
+    height: 20px;
+    border-radius: 10px;
+    background-color: #e0e0e0;
 }
 
-body {
-    font-family: 'Georgia', serif;
-    background-color: var(--harvard-light);
+.progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    transition: width 0.3s ease-in-out;
 }
 
-.navbar-harvard {
-    background-color: var(--harvard-crimson);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
 }
