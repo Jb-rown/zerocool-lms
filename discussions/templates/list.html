@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Course Discussions{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">Course Discussions</h1>
+        <a href="{% url 'thread_create' %}" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+            New Thread
+        </a>
+    </div>
+    
+    {% if threads %}
+        <div class="bg-white rounded-lg shadow divide-y">
+            {% for thread in threads %}
+            <div class="p-4 hover:bg-gray-50">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 mr-4">
+                        <img src="{{ thread.created_by.avatar.url }}" alt="{{ thread.created_by.username }}" class="avatar">
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="text-lg font-semibold">
+                            <a href="{% url 'thread_detail' thread.id %}" class="hover:underline">{{ thread.title }}</a>
+                        </h3>
+                        <p class="text-gray-600 text-sm">
+                            Started by {{ thread.created_by.username }} in {{ thread.course.title }}
+                        </p>
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ thread.post_set.count }} replies • Last updated {{ thread.post_set.last.created_at|timesince }} ago
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="bg-white rounded-lg shadow p-8 text-center">
+            <p class="text-gray-600 mb-4">No discussion threads yet.</p>
+            <a href="{% url 'thread_create' %}" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+                Start a Discussion
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

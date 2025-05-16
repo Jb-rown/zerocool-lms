@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Assignments{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold mb-6">Your Assignments</h1>
+    
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">Pending Assignments</h2>
+        {% if pending_assignments %}
+            <div class="grid grid-cols-1 gap-4">
+                {% for assignment in pending_assignments %}
+                <div class="bg-white p-4 rounded shadow">
+                    <h3 class="text-lg font-semibold">{{ assignment.title }}</h3>
+                    <p class="text-gray-600 mb-2">{{ assignment.course.title }}</p>
+                    <p class="text-sm text-gray-500">Due: {{ assignment.due_date|date:"M d, Y H:i" }}</p>
+                    <a href="{% url 'assignment_detail' assignment.id %}" class="text-blue-600 mt-2 inline-block">
+                        View Assignment
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-600">No pending assignments. Great job!</p>
+        {% endif %}
+    </div>
+    
+    <div>
+        <h2 class="text-xl font-semibold mb-4">Completed Assignments</h2>
+        {% if completed_assignments %}
+            <div class="grid grid-cols-1 gap-4">
+                {% for submission in completed_assignments %}
+                <div class="bg-white p-4 rounded shadow">
+                    <h3 class="text-lg font-semibold">{{ submission.assignment.title }}</h3>
+                    <p class="text-gray-600 mb-2">{{ submission.assignment.course.title }}</p>
+                    <p class="text-sm text-gray-500">Submitted: {{ submission.submitted_at|date:"M d, Y H:i" }}</p>
+                    {% if submission.grade %}
+                        <p class="font-semibold mt-2">Grade: {{ submission.grade }}/100</p>
+                    {% else %}
+                        <p class="text-gray-500 mt-2">Awaiting grading</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-600">No completed assignments yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
