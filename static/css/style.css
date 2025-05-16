@@ -1,0 +1,16 @@
+/* Harvard-inspired styles */
+:root {
+    --harvard-crimson: #A51C30;
+    --harvard-gray: #545454;
+    --harvard-light: #F8F8F8;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background-color: var(--harvard-light);
+}
+
+.navbar-harvard {
+    background-color: var(--harvard-crimson);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
