@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded shadow">
+    <h2 class="text-2xl font-bold mb-6 text-center">Join ZeroCool LMS</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+            Register
+        </button>
+    </form>
+    <div class="mt-4 text-center">
+        <p>Already have an account? <a href="{% url 'login' %}" class="text-blue-600">Login</a></p>
+    </div>
+</div>
+{% endblock %}

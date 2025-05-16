@@ -1,6 +1,60 @@
 {% extends 'base.html' %}
 
+{% block title %}Dashboard{% endblock %}
+
 {% block content %}
-<h1>Dashboard</h1>
-<p>Welcome to your dashboard!</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="md:col-span-2">
+        <h2 class="text-2xl font-bold mb-4">Your Courses</h2>
+        {% if enrolled_courses %}
+            <div class="grid grid-cols-1 gap-4">
+                {% for course in enrolled_courses %}
+                <div class="bg-white p-4 rounded shadow">
+                    <h3 class="text-xl font-semibold">{{ course.title }}</h3>
+                    <p class="text-gray-600">{{ course.description|truncatewords:20 }}</p>
+                    <a href="{% url 'course_detail' course.id %}" class="text-blue-600 mt-2 inline-block">
+                        Continue Learning →
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-600">You haven't enrolled in any courses yet.</p>
+            <a href="{% url 'course_list' %}" class="text-blue-600 mt-2 inline-block">
+                Browse Courses
+            </a>
+        {% endif %}
+    </div>
+    
+    <div>
+        <div class="bg-white p-4 rounded shadow mb-6">
+            <h3 class="text-xl font-semibold mb-4">Your Learning Stats</h3>
+            <div class="flex items-center mb-2">
+                <span class="w-24">Points:</span>
+                <span class="font-bold">{{ user.points }}</span>
+            </div>
+            <div class="flex items-center mb-2">
+                <span class="w-24">Courses:</span>
+                <span class="font-bold">{{ enrolled_courses.count }}</span>
+            </div>
+            <div class="flex items-center">
+                <span class="w-24">Streak:</span>
+                <span class="font-bold">5 days 🔥</span>
+            </div>
+        </div>
+        
+        <div class="bg-white p-4 rounded shadow">
+            <h3 class="text-xl font-semibold mb-4">Quick Actions</h3>
+            <a href="{% url 'course_list' %}" class="block mb-2 text-blue-600 hover:underline">
+                Find New Courses
+            </a>
+            <a href="{% url 'assignment_list' %}" class="block mb-2 text-blue-600 hover:underline">
+                View Assignments
+            </a>
+            <a href="{% url 'discussion_list' %}" class="block text-blue-600 hover:underline">
+                Join Discussions
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}
